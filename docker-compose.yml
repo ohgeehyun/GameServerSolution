@@ -1,0 +1,14 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ApiServer/Dockerfile
+    ports:
+      - "50000:5251"
+
+  tcp:
+    build:
+      context: .
+      dockerfile: TcpServer/Dockerfile
+    ports:
+      - "50001:7777"
