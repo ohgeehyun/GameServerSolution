@@ -32,8 +32,9 @@ jobs:
 
       - name: Save images as tarballs
         run: |
-          docker save game-server-api:latest -o /tmp/api.tar
-          docker save game-server-tcp:latest -o /tmp/tcp.tar
+          docker save game-server-api:latest -o /artifacts/api.tar
+          docker save game-server-tcp:latest -o /artifacts/tcp.tar
+          ls -lh artifacts
 
       - name: Copy images to EC2
         uses: appleboy/scp-action@v0.1.7
@@ -41,7 +42,7 @@ jobs:
           host: ${{ env.EC2_HOST }}
           username: ${{ env.EC2_USER }}
           key: ${{ env.EC2_KEY }}
-          source: "/tmp/api.tar,/tmp/tcp.tar"
+          source: "/artifacts/api.tar,/artifacts/tcp.tar"
           target: "~/"
 
       - name: Load images and restart containers on EC2
