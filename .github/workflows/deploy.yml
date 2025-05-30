@@ -1,28 +1,58 @@
-name: Deploy to EC2
+name: Build and Deploy GameServer
 
 on:
   push:
     branches: [ master ]
 
+env:
+  EC2_HOST: ${{ secrets.EC2_HOST }}
+  EC2_USER: ubuntu
+  EC2_KEY: ${{ secrets.EC2_KEY }}
+
 jobs:
-  deploy:
-    name: Deploy to EC2
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Setup SSH key
-      run: |
-        echo "${{ secrets.EC2_KEY }}" > ci_key
-        chmod 600 ci_key
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
 
-    - name: Deploy to EC2
-      run: |
-        ssh -o StrictHostKeyChecking=no -i ci_key ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-          cd GameServerSolution
-          git pull origin main
-          docker compose build
-          docker compose up -d
-        EOF
+      - name: Build API Docker image
+        run: |
+          docker build -f ApiServer/Dockerfile -t game-server-api:latest ApiServer
+
+      - name: Build TCP Docker image
+        run: |
+          docker build -f TcpServer/Dockerfile -t game-server-tcp:latest TcpServer
+
+      - name: Save images as tarballs
+        run: |
+          docker save game-server-api:latest -o api.tar
+          docker save game-server-tcp:latest -o tcp.tar
+
+      - name: Copy images to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ env.EC2_HOST }}
+          username: ${{ env.EC2_USER }}
+          key: ${{ env.EC2_KEY }}
+          source: "api.tar,tcp.tar"
+          target: "~/"
+
+      - name: Load images and restart containers on EC2
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ env.EC2_HOST }}
+          username: ${{ env.EC2_USER }}
+          key: ${{ env.EC2_KEY }}
+          script: |
+            docker load -i ~/api.tar
+            docker load -i ~/tcp.tar
+            cd ~/GameServerSolution
+            docker compose down
+            docker compose up -d
