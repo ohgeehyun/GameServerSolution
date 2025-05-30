@@ -24,11 +24,11 @@ jobs:
 
       - name: Build API Docker image
         run: |
-          docker build -f ApiServer/Dockerfile -t game-server-api:latest ApiServer .
+          docker build -f ApiServer/Dockerfile -t game-server-api:latest  .
 
       - name: Build TCP Docker image
         run: |
-          docker build -f TcpServer/Dockerfile -t game-server-tcp:latest TcpServer .
+          docker build -f TcpServer/Dockerfile -t game-server-tcp:latest  .
 
       - name: Save images as tarballs
         run: |
