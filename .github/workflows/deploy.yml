@@ -32,6 +32,7 @@ jobs:
 
       - name: Save images as tarballs
         run: |
+          mkdir -p artifacts
           docker save game-server-api:latest -o /artifacts/api.tar
           docker save game-server-tcp:latest -o /artifacts/tcp.tar
           ls -lh artifacts
@@ -42,7 +43,7 @@ jobs:
           host: ${{ env.EC2_HOST }}
           username: ${{ env.EC2_USER }}
           key: ${{ env.EC2_KEY }}
-          source: "/artifacts/api.tar,/artifacts/tcp.tar"
+          source: "artifacts/api.tar,artifacts/tcp.tar"
           target: "~/"
 
       - name: Load images and restart containers on EC2
