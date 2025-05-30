@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY *.sln ./
 COPY NetworkCore/ ./NetworkCore/
-COPY TcpServer/ ./TcpServers/
+COPY TcpServer/ ./TcpServer/
 
 WORKDIR /app/TcpServers
 RUN dotnet publish -c Release -o /out
