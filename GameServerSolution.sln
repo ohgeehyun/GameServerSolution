@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkCore", "NetworkCore\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TcpServer", "TcpServer\TcpServer.csproj", "{C019A9DA-E6EB-438B-BBCD-EF78E5EFF246}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiServer", "ApiServer\ApiServer.csproj", "{6D67706F-7241-4525-B551-1BE12A030268}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiServer", "ApiServer\ApiServer.csproj", "{951F83E2-1013-4579-BF34-3B32ADD06C4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{C019A9DA-E6EB-438B-BBCD-EF78E5EFF246}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C019A9DA-E6EB-438B-BBCD-EF78E5EFF246}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C019A9DA-E6EB-438B-BBCD-EF78E5EFF246}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6D67706F-7241-4525-B551-1BE12A030268}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6D67706F-7241-4525-B551-1BE12A030268}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6D67706F-7241-4525-B551-1BE12A030268}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6D67706F-7241-4525-B551-1BE12A030268}.Release|Any CPU.Build.0 = Release|Any CPU
+		{951F83E2-1013-4579-BF34-3B32ADD06C4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{951F83E2-1013-4579-BF34-3B32ADD06C4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{951F83E2-1013-4579-BF34-3B32ADD06C4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{951F83E2-1013-4579-BF34-3B32ADD06C4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

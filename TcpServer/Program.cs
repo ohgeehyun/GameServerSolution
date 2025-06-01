@@ -1,26 +1,23 @@
-﻿using System.Net;
+﻿using NetworkCore;
+using System.IO;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using TcpServer.Session;
 
-Console.WriteLine("Starting TCP Server...");
+Listener _listener = new Listener();
 
-TcpListener server = new TcpListener(IPAddress.Any, 7777);
-server.Start();
+string host = Dns.GetHostName();
+IPHostEntry iphost = Dns.GetHostEntry(host); //현재 컴퓨터의 호스트
+IPAddress ipAddr = iphost.AddressList[1]; //호스트 정보에서 ip 
+IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777); //ipEndPoint에 아이피와 포트 데이터
 
-Console.WriteLine("Waiting for clients...");
-while (true)
+_listener.Init(endPoint, () => { return SessionManager.Instance.Generator();});
+
+Console.Write("ready to listening ......");
+
+while(true)
 {
-    TcpClient client = await server.AcceptTcpClientAsync();
-    _ = Task.Run(async () =>
-    {
-        using var stream = client.GetStream();
-        byte[] buffer = new byte[1024];
-        int byteCount = await stream.ReadAsync(buffer, 0, buffer.Length);
-        string received = Encoding.UTF8.GetString(buffer, 0, byteCount);
-        Console.WriteLine($"Received: {received}");
 
-        string response = "Echo: " + received;
-        byte[] sendBuffer = Encoding.UTF8.GetBytes(response);
-        await stream.WriteAsync(sendBuffer, 0, sendBuffer.Length);
-    });
 }
+
