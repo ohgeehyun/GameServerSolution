@@ -46,7 +46,7 @@ jobs:
           key: ${{ env.EC2_KEY }}
           source: "artifacts/api.tar,artifacts/tcp.tar"
           target: "~/"
-          
+
       - name: Copy docker-compose.yml to EC2
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -55,6 +55,7 @@ jobs:
           key: ${{ env.EC2_KEY }}
           source: "docker-compose.yml"
           target: "~/GameServerSolution"
+          overwrite: true
 
       - name: Load images and restart containers on EC2
         uses: appleboy/ssh-action@v1.0.0
