@@ -1,14 +1,31 @@
+version: '3.8'
+
 services:
   api:
     build:
       context: .
       dockerfile: ApiServer/Dockerfile
+    image: game-server-api:latest
+    container_name: api-server
     ports:
       - "50000:5251"
+    networks:
+      - gameserver-net
 
   tcp:
     build:
       context: .
       dockerfile: TcpServer/Dockerfile
+    image: game-server-tcp:latest  
+    container_name: tcp-server
     ports:
       - "50001:7777"
+    networks:
+      - gameserver-net
+    depends_on:
+      - api
+
+
+networks:
+  gameserver-net:
+    driver: bridge

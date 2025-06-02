@@ -11,13 +11,13 @@ builder.WebHost.UseUrls("http://0.0.0.0:5251"); // docker 내부에서 돌아갈
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

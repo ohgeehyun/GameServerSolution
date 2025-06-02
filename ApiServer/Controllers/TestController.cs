@@ -9,5 +9,9 @@ namespace ApiServer.Controllers
     {
         [HttpGet("ping")]
         public string Ping() => "pong";
+
+        [HttpGet("alive")]
+
+        public string Alive() => "api-server alive.";
     }
 }

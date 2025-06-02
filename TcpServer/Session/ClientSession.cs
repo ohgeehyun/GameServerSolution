@@ -31,12 +31,17 @@ namespace TcpServer
             }
         }
 
-        public override void OnRecvPacket(ArraySegment<byte> buffer)
+        public override async void OnRecvPacket(ArraySegment<byte> buffer)
         {
             string data = Encoding.UTF8.GetString(buffer.Array, buffer.Offset, buffer.Count);
             Console.WriteLine($"받은 패킷 데이터 : {data}");
 
             Send(buffer);
+
+            var client = new HttpClient();
+            var response = await client.GetAsync("http://api:5251/api/alive");
+            var result = await response.Content.ReadAsStringAsync();
+            Console.WriteLine($"Api 응답:{result}");
            
         }
 
