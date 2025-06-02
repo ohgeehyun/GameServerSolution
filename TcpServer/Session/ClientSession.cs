@@ -39,7 +39,7 @@ namespace TcpServer
             Send(buffer);
 
             var client = new HttpClient();
-            var response = await client.GetAsync("http://api:5251/api/alive");
+            var response = await client.GetAsync("http://api:5251/api/test/alive");
             var result = await response.Content.ReadAsStringAsync();
             Console.WriteLine($"Api 응답:{result}");
            
