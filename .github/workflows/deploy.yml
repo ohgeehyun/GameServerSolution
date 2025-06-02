@@ -44,7 +44,7 @@ jobs:
           host: ${{ env.EC2_HOST }}
           username: ${{ env.EC2_USER }}
           key: ${{ env.EC2_KEY }}
-          source: "artifacts/api.tar,artifacts/tcp.tar"
+          source: "artifacts"
           target: "~/"
 
       - name: Copy docker-compose.yml to EC2
@@ -64,8 +64,10 @@ jobs:
           username: ${{ env.EC2_USER }}
           key: ${{ env.EC2_KEY }}
           script: |
-            docker load -i ~/api.tar
-            docker load -i ~/tcp.tar
+            docker load -i ~/artifacts/api.tar
+            docker load -i ~/artifacts/tcp.tar
             cd ~/GameServerSolution
             docker compose down
             docker compose up -d
+            docker ps -a
+            docker compose logs --tail=100
