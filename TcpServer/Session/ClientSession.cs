@@ -8,7 +8,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using TcpServer.UserData;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace TcpServer
 {

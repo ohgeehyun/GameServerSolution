@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TcpServer", "TcpServer\TcpS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiServer", "ApiServer\ApiServer.csproj", "{951F83E2-1013-4579-BF34-3B32ADD06C4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PacketGenerator", "PacketGenerator\PacketGenerator.csproj", "{BEC3D885-4FFC-4C3D-A864-536330FE5AA5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{B5159501-A0A4-450A-9E54-E502E89347D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,9 +31,16 @@ Global
 		{951F83E2-1013-4579-BF34-3B32ADD06C4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{951F83E2-1013-4579-BF34-3B32ADD06C4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{951F83E2-1013-4579-BF34-3B32ADD06C4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEC3D885-4FFC-4C3D-A864-536330FE5AA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEC3D885-4FFC-4C3D-A864-536330FE5AA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEC3D885-4FFC-4C3D-A864-536330FE5AA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEC3D885-4FFC-4C3D-A864-536330FE5AA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BEC3D885-4FFC-4C3D-A864-536330FE5AA5} = {B5159501-A0A4-450A-9E54-E502E89347D3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7404CB82-82CD-4084-98BE-C9C6639A7E3A}

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "PacketGenerator": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
