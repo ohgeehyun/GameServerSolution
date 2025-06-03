@@ -30,7 +30,7 @@ namespace ApiServer.Controllers
             public string Token { get; set; } = string.Empty;
         }
 
-        [HttpPost("login")]
+        [HttpPost("login/user")]
         public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginRequest request)
         {
             //유효성 검사

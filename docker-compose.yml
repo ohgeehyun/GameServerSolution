@@ -13,6 +13,9 @@ services:
       - "50000:5251"
     networks:
       - gameserver-net
+    environment:
+    - JWT_SECRET_KEY
+    - MYSQL_CONNECTION_STRING
 
   tcp:
     build:
@@ -26,10 +29,12 @@ services:
       - "50001:7777"
     networks:
       - gameserver-net
+    environment:
+      - JWT_SECRET_KEY
+      - MYSQL_CONNECTION_STRING
     depends_on:
       - api
-
-
+    
 networks:
   gameserver-net:
     driver: bridge
