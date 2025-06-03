@@ -52,5 +52,11 @@ namespace ApiServer.Controllers
             return Ok(new LoginResponse { Status = true, Message = message , Token = "Jwt 토큰 값" });
         }
 
+        [HttpPost("ping")]
+        public IActionResult Ping()
+        {
+            return Ok("pong");
+        }
+
     }
 }
