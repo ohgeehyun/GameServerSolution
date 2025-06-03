@@ -68,6 +68,6 @@ jobs:
             docker load -i ~/artifacts/tcp.tar
             cd ~/GameServerSolution
             docker compose down
-            docker compose up -d
+            docker compose up -d --force-recreate
             docker ps -a
             docker compose logs --tail=100
