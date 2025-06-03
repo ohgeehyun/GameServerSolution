@@ -38,11 +38,11 @@ namespace TcpServer.Session
         }
 
         //null을 값이 없으면 반환 해주기 때문에 사용하는 쪽에서는 null검사하여 사용
-        public ClientSession Find(int id)
+        public ClientSession? Find(int id)
         {
             lock(_lock)
             {
-                ClientSession session = null;
+                ClientSession? session = null;
                 _sessions.TryGetValue(id,out session);
 
                 return session;

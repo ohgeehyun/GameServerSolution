@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Google.Protobuf;
 using NetworkCore;
+using Protocol;
 
 namespace TcpServer.Packet
 {
@@ -27,21 +28,21 @@ namespace TcpServer.Packet
         {
             //시작시 패킷정보에 에 대한 데이터 를 등록
             	
-        _onRecv.Add((ushort)MsgId.CMove, MakePacket<C_Move>);
+        _onRecv.Add((ushort)MsgId.CMove, MakePacket<C_MOVE>);
 		_handler.Add((ushort)MsgId.CMove, PacketHandler.C_MoveHandler);	
-        _onRecv.Add((ushort)MsgId.CSkill, MakePacket<C_Skill>);
+        _onRecv.Add((ushort)MsgId.CSkill, MakePacket<C_SKILL>);
 		_handler.Add((ushort)MsgId.CSkill, PacketHandler.C_SkillHandler);	
-        _onRecv.Add((ushort)MsgId.CVerify, MakePacket<C_Verify>);
+        _onRecv.Add((ushort)MsgId.CVerify, MakePacket<C_VERIFY>);
 		_handler.Add((ushort)MsgId.CVerify, PacketHandler.C_VerifyHandler);	
-        _onRecv.Add((ushort)MsgId.CCreateRoom, MakePacket<C_CreateRoom>);
+        _onRecv.Add((ushort)MsgId.CCreateRoom, MakePacket<C_CREATE_ROOM>);
 		_handler.Add((ushort)MsgId.CCreateRoom, PacketHandler.C_CreateRoomHandler);	
-        _onRecv.Add((ushort)MsgId.CRoomList, MakePacket<C_RoomList>);
+        _onRecv.Add((ushort)MsgId.CRoomList, MakePacket<C_ROOM_LIST>);
 		_handler.Add((ushort)MsgId.CRoomList, PacketHandler.C_RoomListHandler);	
-        _onRecv.Add((ushort)MsgId.CEnterGame, MakePacket<C_EnterGame>);
+        _onRecv.Add((ushort)MsgId.CEnterGame, MakePacket<C_ENTER_GAME>);
 		_handler.Add((ushort)MsgId.CEnterGame, PacketHandler.C_EnterGameHandler);	
-        _onRecv.Add((ushort)MsgId.CMessage, MakePacket<C_Message>);
+        _onRecv.Add((ushort)MsgId.CMessage, MakePacket<C_MESSAGE>);
 		_handler.Add((ushort)MsgId.CMessage, PacketHandler.C_MessageHandler);	
-        _onRecv.Add((ushort)MsgId.CLeaveGame, MakePacket<C_LeaveGame>);
+        _onRecv.Add((ushort)MsgId.CLeaveGame, MakePacket<C_LEAVE_GAME>);
 		_handler.Add((ushort)MsgId.CLeaveGame, PacketHandler.C_LeaveGameHandler);
 
         }
@@ -69,9 +70,9 @@ namespace TcpServer.Packet
                 action.Invoke(Session, pkt);
         }
 
-        public Action<PacketSession, IMessage> GetPacketHandler(ushort id)
+        public Action<PacketSession, IMessage>? GetPacketHandler(ushort id)
         {
-            Action<PacketSession, IMessage> action = null;
+            Action<PacketSession, IMessage>? action = null;
             if (_handler.TryGetValue(id, out action))
                 return action;
 
