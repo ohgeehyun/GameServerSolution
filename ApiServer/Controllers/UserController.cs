@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ApiServer.DB.Model;
+using Microsoft.AspNetCore.Authorization;
 
 [Route("[controller]")]
 [ApiController]
@@ -40,6 +41,7 @@ public class UserController : ControllerBase
 
 
     [HttpPost("user/regist")]
+    [AllowAnonymous] //jwt 인증 제외 
     public async Task<ActionResult<RegistInfoResponse>> userRegister([FromBody] RegistInfoRequest request)
     {
         //유효성 검사
