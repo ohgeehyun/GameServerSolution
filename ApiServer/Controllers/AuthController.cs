@@ -1,5 +1,6 @@
 ﻿using ApiServer.DB;
-using ApiServer.DB.Service;
+using ApiServer.Service.Auth;
+using ApiServer.Service.Jwt;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,10 +12,12 @@ namespace ApiServer.Controllers
     {
 
         private readonly AuthService _authService;
+        private readonly JwtService _jwtService;
 
-        public AuthController(AuthService authService)
+        public AuthController(AuthService authService, JwtService jwtService)
         {
             _authService = authService;
+            _jwtService = jwtService;
         }
 
         public class LoginRequest
@@ -25,7 +28,7 @@ namespace ApiServer.Controllers
 
         public class LoginResponse
         {
-            public bool Status { get; set; }
+            public bool Status { get; set; } = false;
             public string Message { get; set; } = string.Empty;
             public string Token { get; set; } = string.Empty;
         }
@@ -36,6 +39,7 @@ namespace ApiServer.Controllers
             //유효성 검사
             if(string.IsNullOrEmpty(request.UserId) || string.IsNullOrEmpty(request.Password))
             {
+                //HTTP Status Codes 400
                 return BadRequest(new LoginResponse
                 {
                     Status = false,
@@ -45,14 +49,22 @@ namespace ApiServer.Controllers
 
             var (success, message, user) = await _authService.ValidateUserAsync(request.UserId,request.Password);
 
+            //HTTP Status Codes 401
             if (!success)
                 return Unauthorized(new LoginResponse { Status = false , Message = message});
 
+            string token = _jwtService.GenerateToken(request.UserId);
+       
             // 성공하면 jwt 토큰 생성해서 리턴 등 
-            return Ok(new LoginResponse { Status = true, Message = message , Token = "Jwt 토큰 값" });
+            return Ok(new LoginResponse { Status = true, Message = message , Token = token });
         }
 
-        [HttpPost("ping")]
+
+
+    
+
+
+        [HttpGet("ping")]
         public IActionResult Ping()
         {
             return Ok("pong");
