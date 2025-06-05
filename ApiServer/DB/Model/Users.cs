@@ -22,11 +22,11 @@ namespace ApiServer.DB.Model
         public string Nickname { get; set; }
 
         [MaxLength(255)]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         public DateTime? Birth { get; set; }
 
         [MaxLength(1)]
-        public string Gender { get; set; }
+        public string? Gender { get; set; }
     }
 }

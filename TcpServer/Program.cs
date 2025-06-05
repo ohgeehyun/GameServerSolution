@@ -6,6 +6,13 @@ using System.Net.Sockets;
 using System.Text;
 using TcpServer.Session;
 using System.Diagnostics;
+using TcpServer.Manager;
+
+
+
+
+//Manager class init
+var Gmanager = GlobalManager.Instance; ;
 
 Listener _listener = new Listener();
 

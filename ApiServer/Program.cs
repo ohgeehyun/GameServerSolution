@@ -5,6 +5,7 @@ using System.Text;
 using ApiServer.DB;
 using Microsoft.EntityFrameworkCore;
 using ApiServer.Extensions;
+using ApiServer.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,15 +17,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.WebHost.UseUrls("http://0.0.0.0:5251"); // docker 내부에서 돌아갈떄 5251포트를 사용
 
-
-//jwt
+/*------------------------------------------ 
+                   jwt
+ -----------------------------------------*/
 var jwtKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
 
 if (string.IsNullOrEmpty(jwtKey))
     throw new Exception("jwt 시크릿 키가 설졍되지 않았습니다.");
 
-
-// 서비스 인증에 jwttokken설정 및 jwttokken 옵션 넣어주기
 builder.Services.AddAuthentication(option =>
 {
     option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -44,10 +44,15 @@ builder.Services.AddAuthentication(option =>
         };
     });
 
-//service 등록
+/*------------------------------------------ 
+                  Services
+ -----------------------------------------*/
 builder.Services.RegisterAppServices(jwtKey);
 
-////mysql
+
+/*------------------------------------------ 
+                  mysql
+ -----------------------------------------*/
 string? connectionString = Environment.GetEnvironmentVariable("MYSQL_CONNECTION_STRING");
 
 if (string.IsNullOrWhiteSpace(connectionString))
@@ -55,7 +60,20 @@ if (string.IsNullOrWhiteSpace(connectionString))
 
 builder.Services.AddDbContext<GameDbContext>(options => options.UseMySql(connectionString,ServerVersion.AutoDetect(connectionString)));
 
+
+
+
+/*--------------------------------------- 
+                policy
+ -----------------------------------------*/
+
+
+/*--------------------------------------- 
+                 build
+ -----------------------------------------*/
 var app = builder.Build();
+
+app.UseRateLimiter(); //미들웨어로 로그인 횟수 제한 등록
 
 app.UseSwagger();
 app.UseSwaggerUI();
@@ -64,5 +82,4 @@ app.UseSwaggerUI();
 app.UseAuthorization();
 
 app.MapControllers();
-
 app.Run();

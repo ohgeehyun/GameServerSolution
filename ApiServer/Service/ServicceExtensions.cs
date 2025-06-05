@@ -19,6 +19,11 @@ namespace ApiServer.Extensions
 
 
             //Transient
+
+
+
+            // Rate Limiting 정책 등록
+            services.AddCustomRateLimiters();
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using ApiServer.DB;
 using ApiServer.Service.Auth;
 using ApiServer.Service.Jwt;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace ApiServer.Controllers
 {
@@ -33,7 +35,9 @@ namespace ApiServer.Controllers
             public string Token { get; set; } = string.Empty;
         }
 
+        [EnableRateLimiting("LoginPolicy")]
         [HttpPost("login/user")]
+        [AllowAnonymous] //jwt 인증 제외 
         public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginRequest request)
         {
             //유효성 검사
@@ -61,9 +65,9 @@ namespace ApiServer.Controllers
 
 
 
-    
 
 
+        [EnableRateLimiting("ApiPolicy")]
         [HttpGet("ping")]
         public IActionResult Ping()
         {
