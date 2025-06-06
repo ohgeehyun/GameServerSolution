@@ -1,5 +1,9 @@
 name: Build and Deploy GameServer
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }} # 워크플로우당, 브랜치당 하나의 실행 허용
+  cancel-in-progress: true # 현재 실행 중인 동일 그룹의 워크플로우를 취소하고 새 워크플로우 시작
+
 on:
   push:
     branches: [ master ]

@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   api:
     build:
@@ -18,7 +16,7 @@ services:
     - MYSQL_CONNECTION_STRING
     ulimits:
       nofile:
-        sofr: 2048
+        soft: 2048
         hard: 4096
     restart : always
     
@@ -41,7 +39,7 @@ services:
       - api
     ulimits:
       nofile:
-        sofr: 2048
+        soft: 2048
         hard: 4096
     restart : always
     
