@@ -10,8 +10,8 @@ namespace NetworkCore
 {
     public class Listener
     {
-        Socket _listenSocket;
-        Func<Session> _SessionFactory;
+        Socket? _listenSocket;
+        Func<Session>? _SessionFactory;
         private bool _initialized = false;
 
         //listen 소켓 초기화

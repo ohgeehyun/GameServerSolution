@@ -16,7 +16,12 @@ services:
     environment:
     - JWT_SECRET_KEY
     - MYSQL_CONNECTION_STRING
-
+    ulimits:
+      nofile:
+        sofr: 2048
+        hard: 4096
+    restart : always
+    
   tcp:
     build:
       context: .
@@ -34,6 +39,11 @@ services:
       - MYSQL_CONNECTION_STRING
     depends_on:
       - api
+    ulimits:
+      nofile:
+        sofr: 2048
+        hard: 4096
+    restart : always
     
 networks:
   gameserver-net:
