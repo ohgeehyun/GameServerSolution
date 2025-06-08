@@ -32,13 +32,18 @@ jobs:
 
       - name: Build TCP Docker image
         run: |
-          docker build -f TcpServer/Dockerfile -t game-server-tcp:latest  .
+          docker build -f TcpServer/Dockerfile -t game-server-listen:latest  .
+      
+      - name: Build GameServer Docker image
+        run: |
+          docker build -f RoomServer/Dockerfile -t game-server-room:latest .
 
       - name: Save images as tarballs
         run: |
           mkdir -p artifacts
           docker save game-server-api:latest -o artifacts/api.tar
-          docker save game-server-tcp:latest -o artifacts/tcp.tar
+          docker save game-server-listen:latest -o artifacts/listen.tar
+          docker save game-server-room:latest -o artifacts/room.tar
           chmod -R 755 artifacts
           ls -lh artifacts
 
@@ -69,7 +74,8 @@ jobs:
           key: ${{ env.EC2_KEY }}
           script: |
             docker load -i ~/artifacts/api.tar
-            docker load -i ~/artifacts/tcp.tar
+            docker load -i ~/artifacts/listen.tar
+            docker load -i ~/artifacts/roomserver.tar
             cd ~/GameServerSolution
             docker compose down
             docker compose up -d --force-recreate

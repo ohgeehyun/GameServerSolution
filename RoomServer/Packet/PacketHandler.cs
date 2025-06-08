@@ -6,15 +6,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TcpServer.Manager;
+using RoomServer.Manager;
 using System.Security.Claims;
 using System.Reflection.Metadata;
 using System.IdentityModel.Tokens.Jwt;
 using System.Runtime;
-using TcpServer.Manager.Auth;
+using RoomServer.Manager.Auth;
 
 
-namespace TcpServer.Packet
+namespace RoomServer.Packet
 {
     public class PacketHandler
     {

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
+using System.Security.Claims;
 
 namespace ApiServer.Controllers
 {
@@ -57,7 +58,7 @@ namespace ApiServer.Controllers
             if (!success)
                 return Unauthorized(new LoginResponse { Status = false , Message = message});
 
-            string token = _jwtService.GenerateToken(request.UserId);
+            string token = _jwtService.GenerateToken(user!.UserId,120,new Claim("nickname",user.Nickname));
        
             // 성공하면 jwt 토큰 생성해서 리턴 등 
             return Ok(new LoginResponse { Status = true, Message = message , Token = token });
@@ -69,6 +70,7 @@ namespace ApiServer.Controllers
 
         [EnableRateLimiting("ApiPolicy")]
         [HttpGet("ping")]
+        [AllowAnonymous] //jwt 인증 제외 
         public IActionResult Ping()
         {
             return Ok("pong");

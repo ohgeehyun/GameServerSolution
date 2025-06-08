@@ -14,6 +14,7 @@ services:
     environment:
     - JWT_SECRET_KEY
     - MYSQL_CONNECTION_STRING
+    - REDIS_CONNECTION_STRING
     ulimits:
       nofile:
         soft: 2048
@@ -35,6 +36,7 @@ services:
     environment:
       - JWT_SECRET_KEY
       - MYSQL_CONNECTION_STRING
+      - REDIS_CONNECTION_STRING
     depends_on:
       - api
     ulimits:
@@ -42,6 +44,30 @@ services:
         soft: 2048
         hard: 4096
     restart : always
+
+  roomserver:
+    build:
+      context: .
+      dockerfile: RoomServer/Dockerfile
+    image: game-server-room:latest
+    container_name: room-server
+    ports:
+      - "50002:7778"  # 개발 테스트용 포트
+    networks:
+      - gameserver-net
+    env_file:
+      - .env
+    environment:
+      - JWT_SECRET_KEY
+      - MYSQL_CONNECTION_STRING
+      - REDIS_CONNECTION_STRING
+    depends_on:
+      - api
+    ulimits:
+      nofile:
+        soft: 2048
+        hard: 4096
+    restart: on-failure
     
 networks:
   gameserver-net:

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace ApiServer.DB.Model
+namespace ApiServer.DB.Mysql.Model
 {
     [Table("users_oauth")]
     public class UsersOauth

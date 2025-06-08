@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System.IO;
-using ApiServer.DB;
+using ApiServer.DB.Mysql;
 
 public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<GameDbContext>
 {

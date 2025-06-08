@@ -1,8 +1,6 @@
-﻿using ApiServer.DB;
-using ApiServer.DB.Model;
-using global::ApiServer.DB.Model;
-using global::ApiServer.DB;
+﻿using ApiServer.DB.Mysql.Model;
 using Microsoft.EntityFrameworkCore;
+using ApiServer.DB.Mysql;
 
 namespace ApiServer.Service.User
 {

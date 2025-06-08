@@ -1,13 +1,13 @@
-﻿using ApiServer.DB;
-using ApiServer.Service.User;
+﻿using ApiServer.Service.User;
 using ApiServer.Service.Jwt;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ApiServer.DB.Model;
+using ApiServer.DB.Mysql.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.RateLimiting;
+using ApiServer.DB.Mysql;
 
 [Route("[controller]")]
 [ApiController]

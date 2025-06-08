@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 # 사용자 설정 
 .env
+/K8S/*Secret.yaml

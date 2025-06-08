@@ -15,7 +15,7 @@ namespace NetworkCore
     public abstract class PacketSession : Session
     {
         //TODO : 패킷 구조 따른 음 헤더 사이즈는 변경 필수 인듯
-        public static readonly int HeaderSize = 2;
+        public static readonly int HeaderSize = 4;
 
 
         //인자로 CompleteRecv에서 recvbuffer의 read커서에서 write커서까지의 데이터 부분을 전달

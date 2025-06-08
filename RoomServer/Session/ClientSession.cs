@@ -9,12 +9,12 @@ using System.Net.Sockets;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
-using TcpServer.Packet;
-using TcpServer.Session;
-using TcpServer.UserData;
+using RoomServer.Packet;
+using RoomServer.Session;
+using RoomServer.UserData;
 
 
-namespace TcpServer
+namespace RoomServer
 {
     #region ## notice
     //클라이언트는 서버 오픈시 연결완료 이후 JWT를 줄 것이고 검증이 통과되면 연결을 지속하지만 아닐 경우 close를 호출 할 것이다.

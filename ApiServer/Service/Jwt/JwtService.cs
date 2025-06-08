@@ -20,7 +20,7 @@ namespace ApiServer.Service.Jwt
             _audience = audience;   
         }
 
-        public string GenerateToken(string userId, int expireMinutes = 120)
+        public string GenerateToken(string userId ,int expireMinutes = 120, params Claim[] additionalClaims)
         {
             //대칭키를 바이트 배열로 변환해서 보안키 생성
             var sercurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey));
@@ -28,8 +28,10 @@ namespace ApiServer.Service.Jwt
             //대칭키를 사용해 SHA 256 서명을 하기위한 증명 생성
             var credentials = new SigningCredentials(sercurityKey, SecurityAlgorithms.HmacSha256);
 
+            var allClaims = new List<Claim>();
+
             //클레임 정의
-            var claims = new[]
+            var claims = new List<Claim>
             {
 
                 //표준 클레임
@@ -46,6 +48,9 @@ namespace ApiServer.Service.Jwt
                 //jwt id - 토큰 고유값 재사용 방지용 랜덤 guid
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
             };
+
+            if (additionalClaims != null && additionalClaims.Length > 0)
+                claims.AddRange(additionalClaims);
 
             var token = new JwtSecurityToken(
                     issuer: _issuer,

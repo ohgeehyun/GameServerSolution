@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ApiServer.DB.Model
+namespace ApiServer.DB.Mysql.Model
 {
     [Table("users")]
     public class Users

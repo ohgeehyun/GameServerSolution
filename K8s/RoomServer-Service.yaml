@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: room-server-svc-31005
+spec:
+  selector:
+    app: room-server-31005
+  ports:
+    - protocol: TCP
+      port: 7778
+      targetPort: 7778
+      nodePort: 31005
+  type: NodePort

@@ -7,7 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 
-namespace TcpServer.Manager.Auth
+namespace RoomServer.Manager.Auth
 {
 
     public class JwtValidator

@@ -1,5 +1,5 @@
-﻿using ApiServer.DB;
-using ApiServer.DB.Model;
+﻿using ApiServer.DB.Mysql;
+using ApiServer.DB.Mysql.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiServer.Service.Auth

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: room-server-31005
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: room-server-31005
+  template:
+    metadata:
+      labels:
+        app: room-server-31005
+    spec:
+      containers:
+      - name: room-server
+        image: game-server-room:latest    # 이미지 이름을 로컬에 맞게 변경
+        imagePullPolicy: Never            # 로컬 이미지 사용을 위해 추가
+        command: ["dotnet", "RoomServer.dll", "7778"]  
+        ports:
+        - containerPort: 7778
+        envFrom:
+        - secretRef:
+            name: room-server-secret
+

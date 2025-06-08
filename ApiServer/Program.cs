@@ -2,10 +2,10 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using ApiServer.Service.Jwt;
 using System.Text;
-using ApiServer.DB;
 using Microsoft.EntityFrameworkCore;
 using ApiServer.Extensions;
 using ApiServer.Service;
+using ApiServer.DB.Mysql;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,9 +45,17 @@ builder.Services.AddAuthentication(option =>
     });
 
 /*------------------------------------------ 
+                  Redis
+ -----------------------------------------*/
+string? redisHost = Environment.GetEnvironmentVariable("REDIS_CONNECTION_STRING");
+
+if (string.IsNullOrWhiteSpace(redisHost))
+    throw new Exception("Redis 환경변수가 설정되지 않았습니다.");
+
+/*------------------------------------------ 
                   Services
  -----------------------------------------*/
-builder.Services.RegisterAppServices(jwtKey);
+builder.Services.RegisterAppServices(jwtKey,redisHost);
 
 
 /*------------------------------------------ 
@@ -59,7 +67,6 @@ if (string.IsNullOrWhiteSpace(connectionString))
     throw new Exception("MYSQL 환경변수가 설정되지 않았습니다.");
 
 builder.Services.AddDbContext<GameDbContext>(options => options.UseMySql(connectionString,ServerVersion.AutoDetect(connectionString)));
-
 
 
 

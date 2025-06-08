@@ -7,7 +7,7 @@ using Google.Protobuf;
 using NetworkCore;
 using Protocol;
 
-namespace TcpServer.Packet
+namespace RoomServer.Packet
 {
     class PacketManager
     {
